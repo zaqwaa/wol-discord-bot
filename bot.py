@@ -24,8 +24,6 @@ MC_SERVER_INTERFACE_PORT=int(os.getenv('MC_SERVER_INTERFACE_PORT'))
 MC_SERVER_PORTS=os.getenv('MC_SERVER_PORTS')
 
 # setup bot
-client = discord.Client()
-
 description = '''
 A bot to power on a Minecraft server using Wake-On-Lan. Also provides some info about the servers
 '''
