@@ -94,7 +94,6 @@ async def mcserverstats(ctx):
 
 @tasks.loop(seconds=15)
 async def set_bot_presence():
-    await bot.wait_until_ready()
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
         sock.settimeout(1)
         if sock.connect_ex((MC_SERVER_IP, MC_SERVER_INTERFACE_PORT)) == 0:
@@ -111,6 +110,10 @@ async def set_bot_presence():
         else:
             game = discord.Game("Server is down.")
             await bot.change_presence(status=discord.Status.idle,activity=game)
+
+@set_bot_presence.before_loop
+async def before_set_bot_presence():
+    await bot.wait_until_ready()
 
 set_bot_presence.start()
 bot.run(DISCORD_BOT_TOKEN)
